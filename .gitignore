@@ -3,3 +3,6 @@
 
 # virtual environments
 .venv/
+
+# ignore raw data
+data/raw
