@@ -1,5 +1,6 @@
-# local vs files
+# local vs code files
 .vscode/
+__pycache__/
 
 # virtual environments
 .venv/

@@ -8,7 +8,7 @@ def load_all_data(data_dir: Path) -> dict[str, pd.DataFrame]:
         if f.stem == "data_dictionary":
             continue
         df = pd.read_csv(f)
-        date_columns = [col for col in df.columns if 'date' in col.lower()]
+        date_columns = [col for col in df.columns if 'date' in col.lower() or col.lower() == 'quarter_end']
         for col in date_columns:
             df[col] = pd.to_datetime(df[col], errors='coerce')
         key = f.stem.lower().replace(" ", "_")
