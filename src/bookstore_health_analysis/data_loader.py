@@ -1,6 +1,8 @@
 import pandas as pd
 from pathlib import Path
 
+EXTRA_DATE_COLS = {'quarter_end', 'pay_period_start'}
+
 def load_all_data(data_dir: Path) -> dict[str, pd.DataFrame]:
     files = list(data_dir.glob("*.csv"))
     dfs: dict[str, pd.DataFrame] = {}
@@ -8,7 +10,7 @@ def load_all_data(data_dir: Path) -> dict[str, pd.DataFrame]:
         if f.stem == "data_dictionary":
             continue
         df = pd.read_csv(f)
-        date_columns = [col for col in df.columns if 'date' in col.lower() or col.lower() == 'quarter_end']
+        date_columns = [c for c in df.columns if 'date' in c.lower() or c.lower() in EXTRA_DATE_COLS]
         for col in date_columns:
             df[col] = pd.to_datetime(df[col], errors='coerce')
         key = f.stem.lower().replace(" ", "_")
